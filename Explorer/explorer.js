@@ -770,10 +770,15 @@ $('#series-preview').live('click', function(e) {
         Sort(instances, function(x) { return x.IndexInSeries; }, true, false);
 
         var instancesUri = window.location.protocol + '//' + window.location.host + '/instances/';
-        instancesUri += '?'; // dwv multiple uri keyword
-        for (var i = 0; i < instances.length; i++) {
-          if ( i > 0 ) instancesUri += '&';
-          instancesUri += 'file=' + instances[i] + '/file';
+        if ( instances.length === 1 ) {
+          instancesUri += instances[0] + '/file';
+        }
+        else {
+          instancesUri += '?'; // dwv multiple uri keyword
+          for (var i = 0; i < instances.length; i++) {
+            if ( i > 0 ) instancesUri += '&';
+            instancesUri += 'file=' + instances[i] + '/file';
+          }
         }
 
         var dwvUri = './dwv/viewers/mobile';
