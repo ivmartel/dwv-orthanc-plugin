@@ -46,7 +46,7 @@ ORTHANC_PLUGINS_API int32_t CallbackRessources(
   try
   {
     answerSize = Orthanc::EmbeddedResources::GetDirectoryResourceSize(
-      Orthanc::EmbeddedResources::DirectoryResourceId::DWV_EXPLORER, path.c_str());
+      Orthanc::EmbeddedResources::DWV_EXPLORER, path.c_str());
   }
   catch (...)
   {
@@ -57,7 +57,7 @@ ORTHANC_PLUGINS_API int32_t CallbackRessources(
   }
   // get the answer buffer
   const char* answer = static_cast<const char*>(Orthanc::EmbeddedResources::GetDirectoryResourceBuffer(
-    Orthanc::EmbeddedResources::DirectoryResourceId::DWV_EXPLORER, path.c_str()));
+    Orthanc::EmbeddedResources::DWV_EXPLORER, path.c_str()));
   // find mime type
   const std::string ext = file.substr( file.find_last_of('.') + 1, file.size() );
   std::string mimeType = "";
