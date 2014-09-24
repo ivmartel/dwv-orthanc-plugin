@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- <html manifest="cache.manifest"> -->
+<html>
+
+<head>
+<title>DICOM Web Viewer</title>
+<meta charset="UTF-8">
+<meta name="description" content="DICOM Web Viewer (DWV) static version">
+<meta name="keywords" content="DICOM,HTML5,JavaScript,medical,imaging,DWV">
+<link type="text/css" rel="stylesheet" href="../../css/style.css">
+<style type="text/css" >
+body { background-color: #222; color: white;
+  margin: 10px; padding: 0; font-size: 80%; }
+#pageHeader h1 { display: inline-block; margin: 0; color: #fff; }
+#pageHeader a { color: #ddf; }
+#pageHeader #toolbar { display: inline-block; float: right; }
+#toolbox li:first-child { list-style-type: none; padding-bottom: 10px; margin-left: -20px; }
+#pageMain { position: absolute; height: 92%; width: 99%; bottom: 5px; left: 5px; background-color: #333; }
+#infotl { color: #333; text-shadow: 0 1px 0 #fff; }
+#infotr { color: #333; text-shadow: 0 1px 0 #fff; }
+</style>
+<link type="text/css" rel="stylesheet" href="../../ext/jquery-ui/themes/ui-darkness/jquery-ui-1.11.0.min.css">
+<!-- Third party -->  
+<script type="text/javascript" src="../../ext/jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../ext/jquery-ui/jquery-ui-1.11.0.min.js"></script>
+<script type="text/javascript" src="../../ext/flot/jquery.flot.min.js"></script>
+<script type="text/javascript" src="../../ext/openjpeg/openjpeg.js"></script>
+<script type="text/javascript" src="../../ext/kinetic/kinetic-v5.1.1-06.10.min.js"></script>
+<!-- Local -->
+<script type="text/javascript" src="../../dwv-0.8.0beta.min.js"></script>
+<!-- Launch the app -->
+<script type="text/javascript" src="appgui.js"></script>
+<script type="text/javascript" src="applauncher.js"></script>
+</head>
+
+<body>
+
+<div id="pageHeader">
+
+<!-- Title -->
+<h1>DICOM Web Viewer 
+(<a href="https://github.com/ivmartel/dwv">dwv</a> 
+<span class="dwv-version"></span>)</h1>
+
+<!-- Toolbar -->
+<div id="toolbar"></div>
+
+</div><!-- /pageHeader -->
+
+<div id="pageMain">
+
+<!-- Open file -->
+<div id="openData" title="File">
+<div id="loaderlist"></div>
+<div id="progressbar"></div>
+</div>
+
+<!-- Toolbox -->
+<div id="toolbox" title="Toolbox">
+<ul id="toolList"></ul>
+</div>
+
+<!-- History -->
+<div id="history" title="History"></div>
+
+<!-- Tags -->
+<div id="tags" title="Tags"></div>
+
+<!-- Help -->
+<div id="help" title="Help"></div>
+
+<!-- Layer Container -->
+<div id="layerDialog" title="Image">
+<div id="layerContainer">
+<canvas id="imageLayer">Only for HTML5 compatible browsers...</canvas>
+<div id="drawDiv"></div>
+<div id="infoLayer">
+<div id="infotl"></div>
+<div id="infotr"></div>
+<div id="infobl"></div>
+<div id="infobr"><div id="plot"></div></div>
+</div><!-- /infoLayer -->
+</div><!-- /layerContainer -->
+</div><!-- /layerDialog -->
+
+</div><!-- /pageMain -->
+
+</body>
+</html>
