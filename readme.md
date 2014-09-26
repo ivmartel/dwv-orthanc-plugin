@@ -7,6 +7,7 @@ This plugin allows to preview DICOM series and instances stored in Orthanc using
 Build requirements
 ------------------
  * python,
+ * CMake,
  * a C++ compiler.
  
 Build instructions
