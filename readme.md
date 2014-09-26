@@ -22,7 +22,7 @@ Build instructions
 
 Orthanc configuration
 ---------------------
-Just add the path to the `DwvExplorer` shared library in the *"Plugins"* section of an Orthanc [configuration file](https://code.google.com/p/orthanc/wiki/OrthancConfiguration). 
+Just add the path to the `DwvExplorer` shared library (built or from its [releases](https://github.com/ivmartel/DwvExplorer/releases)) in the *"Plugins"* section of an Orthanc [configuration file](https://code.google.com/p/orthanc/wiki/OrthancConfiguration). 
 
 Launch Orthanc with the configuration file as input (for example `Orthanc ./Configuration.json`) and browse to [http://localhost:8042/plugin-dwv/explorer.html#](http://localhost:8042/plugin-dwv/explorer.html#) 
 (update if you changed the default port).
