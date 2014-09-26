@@ -6,14 +6,14 @@ This plugin allows to preview DICOM series and instances stored in Orthanc using
  
 Build requirements
 ------------------
- * python,
- * CMake,
+ * python ([2.7.8](https://www.python.org/download/releases/2.7.8/)),
+ * CMake ([2.8.12](http://www.cmake.org/download/)),
  * a C++ compiler.
  
 Build instructions
 ------------------
- * Checkout the Orthanc source code,
- * Checkout the DwvExplorer plugin source code,
+ * Checkout the Orthanc source code ([0.8.4](https://sourceforge.net/projects/orthancserver/files/Orthanc-0.8.4.tar.gz/download)),
+ * Checkout the DwvExplorer plugin source code (git clone or [downlaod zip](https://github.com/ivmartel/DwvExplorer/archive/master.zip)),
  * Point CMake to the `DwvExplorer` folder and choose a build folder,
  * Run `Configure` in CMake,
  * Set the path to the Orthanc sources in the CMake `ORTHANC_DIR` variable,
