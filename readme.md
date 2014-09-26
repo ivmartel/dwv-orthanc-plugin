@@ -13,7 +13,7 @@ Build requirements
 Build instructions
 ------------------
  * Checkout the Orthanc source code ([0.8.4](https://sourceforge.net/projects/orthancserver/files/Orthanc-0.8.4.tar.gz/download)),
- * Checkout the DwvExplorer plugin source code (git clone or [downlaod zip](https://github.com/ivmartel/DwvExplorer/archive/master.zip)),
+ * Checkout the DwvExplorer plugin source code (git clone or [download zip](https://github.com/ivmartel/DwvExplorer/archive/master.zip)),
  * Point CMake to the `DwvExplorer` folder and choose a build folder,
  * Run `Configure` in CMake,
  * Set the path to the Orthanc sources in the CMake `ORTHANC_DIR` variable,
