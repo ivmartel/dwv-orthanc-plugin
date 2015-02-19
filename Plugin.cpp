@@ -100,7 +100,13 @@ ORTHANC_PLUGINS_API int32_t OrthancPluginInitialize(OrthancPluginContext* c)
 
   // Register the callbacks
   OrthancPluginRegisterRestCallback(context, "/plugin-dwv/(.*)", CallbackRessources);
- 
+  
+  // Replace preview button
+  const std::string path = "/replace.js";
+  const char* answer = static_cast<const char*>(Orthanc::EmbeddedResources::GetDirectoryResourceBuffer(
+    Orthanc::EmbeddedResources::DWV_EXPLORER, path.c_str()));
+  OrthancPluginExtendOrthancExplorer(context, answer);
+
   return 0;
 }
 
@@ -119,7 +125,7 @@ ORTHANC_PLUGINS_API const char* OrthancPluginGetName()
 
 ORTHANC_PLUGINS_API const char* OrthancPluginGetVersion()
 {
-  return "0.1";
+  return "0.2";
 }
 
 } // extern "C"
