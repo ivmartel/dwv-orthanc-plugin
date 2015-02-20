@@ -12,6 +12,7 @@ set(ORTHANC_DIR "" CACHE FILEPATH "Path of the Orthanc sources.")
 if(ORTHANC_DIR STREQUAL "")
   message(FATAL_ERROR "Please set the ORTHANC_DIR variable.")
 endif()
+message(status "ORTHANC_DIR: ${ORTHANC_DIR})
 # plugin definition
 include_directories(${ORTHANC_DIR}/Plugins/Include/)
 # for OrthancException used in EmbedResources
