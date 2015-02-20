@@ -4,7 +4,8 @@ compiler:
   - gcc
 
 before_script:
-  - git clone https://code.google.com/p/orthanc/
+  - wget http://sourceforge.net/projects/orthancserver/files/Orthanc-0.8.6.tar.gz/download
+  - tar -xvf Orthanc-0.8.6.tar.gz
   - mkdir build
   - cd build
   - cmake -DORTHANC_DIR:FILEPATH=../orthanc ..
