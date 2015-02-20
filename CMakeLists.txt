@@ -13,7 +13,7 @@ if(ORTHANC_DIR STREQUAL "")
   message(FATAL_ERROR "Please set the ORTHANC_DIR variable.")
 endif()
 # plugin definition
-include_directories(${ORTHANC_DIR}/Plugins/OrthancCPlugin/)
+include_directories(${ORTHANC_DIR}/Plugins/Include/)
 # for OrthancException used in EmbedResources
 include_directories(${ORTHANC_DIR}/Core/)
 include_directories(${ORTHANC_DIR}/OrthancCppClient/SharedLibrary/Laaw/)
