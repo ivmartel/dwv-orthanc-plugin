@@ -7,6 +7,6 @@ before_script:
   - git clone https://code.google.com/p/orthanc/
   - mkdir build
   - cd build
-  - cmake -DORTHANC_DIR:FILEPATH=orthanc ..
+  - cmake -DORTHANC_DIR:FILEPATH=../orthanc ..
 
 script: make
