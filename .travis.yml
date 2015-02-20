@@ -4,7 +4,7 @@ compiler:
   - gcc
 
 before_script:
-  - wget http://sourceforge.net/projects/orthancserver/files/Orthanc-0.8.6.tar.gz/download
+  - wget http://sourceforge.net/projects/orthancserver/files/Orthanc-0.8.6.tar.gz
   - tar -xvf Orthanc-0.8.6.tar.gz
   - mkdir build
   - cd build
