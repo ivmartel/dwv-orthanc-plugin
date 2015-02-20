@@ -8,6 +8,6 @@ before_script:
   - tar -xvf Orthanc-0.8.6.tar.gz
   - mkdir build
   - cd build
-  - cmake -DORTHANC_DIR:FILEPATH=../orthanc ..
+  - cmake -DORTHANC_DIR:FILEPATH=../Orthanc-0.8.6 ..
 
 script: make
