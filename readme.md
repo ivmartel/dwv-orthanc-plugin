@@ -5,4 +5,4 @@ An [Orthanc](http://www.orthanc-server.com/) plugin to preview DICOM series and 
 
 Released under GNU GPL license (see [license.txt](license.txt)). 
  
-[![Build Status](https://travis-ci.org/ivmarteldwv-orthanc-plugin.svg?branch=master)](https://travis-ci.org/ivmartel/dwv-orthanc-plugin)
+[![Build Status](https://travis-ci.org/ivmartel/dwv-orthanc-plugin.svg?branch=master)](https://travis-ci.org/ivmartel/dwv-orthanc-plugin)
