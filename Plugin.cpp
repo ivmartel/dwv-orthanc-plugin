@@ -84,7 +84,7 @@ ORTHANC_PLUGINS_API int32_t OrthancPluginInitialize(OrthancPluginContext* c)
   char info[1024];
 
   context = c;
-  OrthancPluginLogWarning(context, "DWV Explorer plugin is initializing");
+  OrthancPluginLogWarning(context, "DWV plugin is initializing");
 
   // Check the version of the Orthanc core
   if (OrthancPluginCheckVersion(c) == 0)
@@ -99,7 +99,7 @@ ORTHANC_PLUGINS_API int32_t OrthancPluginInitialize(OrthancPluginContext* c)
   }
 
   // Register the callbacks
-  OrthancPluginRegisterRestCallback(context, "/plugin-dwv/(.*)", CallbackRessources);
+  OrthancPluginRegisterRestCallback(context, "/dwv-plugin/(.*)", CallbackRessources);
   
   // Replace preview button
   const std::string path = "/replace.js";
@@ -113,19 +113,19 @@ ORTHANC_PLUGINS_API int32_t OrthancPluginInitialize(OrthancPluginContext* c)
 
 ORTHANC_PLUGINS_API void OrthancPluginFinalize()
 {
-  OrthancPluginLogWarning(context, "DWV Explorer plugin is finalizing");
+  OrthancPluginLogWarning(context, "DWV plugin is finalizing");
 }
 
 
 ORTHANC_PLUGINS_API const char* OrthancPluginGetName()
 {
-  return "dwv-explorer";
+  return "dwv-plugin";
 }
 
 
 ORTHANC_PLUGINS_API const char* OrthancPluginGetVersion()
 {
-  return "0.2";
+  return "0.3";
 }
 
 } // extern "C"

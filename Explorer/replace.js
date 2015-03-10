@@ -16,7 +16,7 @@ $('#instance').live('pagebeforecreate', function() {
           // Viewing a single-frame image
           var instanceUri = window.location.protocol + '//' + window.location.host;
           instanceUri += '/instances/' + $.mobile.pageData.uuid + '/file';
-          var dwvUri = '../plugin-dwv/dwv/viewers/mobile';
+          var dwvUri = '../dwv-plugin/dwv/viewers/mobile';
           var fullUri = dwvUri + '/index.html?input=' + encodeURIComponent(instanceUri);
           window.open(fullUri, '_blank');
         }
@@ -68,7 +68,7 @@ $('#series').live('pagebeforecreate', function() {
             instancesUri += 'file=' + instances[i] + '/file';
           }
         }
-        var dwvUri = '../plugin-dwv/dwv/viewers/mobile';
+        var dwvUri = '../dwv-plugin/dwv/viewers/mobile';
         var fullUri = dwvUri + '/index.html?input=' + encodeURIComponent(instancesUri);
         fullUri += '&dwvReplaceMode=void';
         window.open(fullUri, '_blank');
