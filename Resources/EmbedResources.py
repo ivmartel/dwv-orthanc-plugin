@@ -230,8 +230,7 @@ cpp = open(TARGET_BASE_FILENAME + '.cpp', 'w')
 
 cpp.write("""
 #include "%s.h"
-#include "OrthancException.h"
-
+#include <exception>
 #include <stdint.h>
 #include <string.h>
 
@@ -268,7 +267,7 @@ for name in resources:
 
 cpp.write("""
       default:
-        throw OrthancException(ErrorCode_ParameterOutOfRange);
+        throw std::runtime_error("Parameter out of range");
       }
     }
 
@@ -285,7 +284,7 @@ for name in resources:
 
 cpp.write("""
       default:
-        throw OrthancException(ErrorCode_ParameterOutOfRange);
+        throw std::runtime_error("Parameter out of range");
       }
     }
 """)
@@ -310,10 +309,10 @@ for name in resources:
         for path in resources[name]['Files']:
             cpp.write('        if (!strcmp(path, "%s"))\n' % path)
             cpp.write('          return resource%dBuffer;\n' % resources[name]['Files'][path]['Index'])
-        cpp.write('        throw OrthancException("Unknown path in a directory resource");\n\n')
+        cpp.write('        throw std::runtime_error("Unknown path in a directory resource");\n\n')
 
 cpp.write("""      default:
-        throw OrthancException(ErrorCode_ParameterOutOfRange);
+        throw std::runtime_error("Parameter out of range");
       }
     }
 
@@ -330,10 +329,10 @@ for name in resources:
         for path in resources[name]['Files']:
             cpp.write('        if (!strcmp(path, "%s"))\n' % path)
             cpp.write('          return resource%dSize;\n' % resources[name]['Files'][path]['Index'])
-        cpp.write('        throw OrthancException("Unknown path in a directory resource");\n\n')
+        cpp.write('        throw std::runtime_error("Unknown path in a directory resource");\n\n')
 
 cpp.write("""      default:
-        throw OrthancException(ErrorCode_ParameterOutOfRange);
+        throw std::runtime_error("Parameter out of range");
       }
     }
 """)
@@ -362,7 +361,7 @@ for name in resources:
         cpp.write('        break;\n\n')
 
 cpp.write("""      default:
-        throw OrthancException(ErrorCode_ParameterOutOfRange);
+        throw std::runtime_error("Parameter out of range");
       }
     }
 """)

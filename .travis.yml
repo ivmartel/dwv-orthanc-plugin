@@ -5,10 +5,8 @@ compiler:
 
 before_script:
   - cd ..
-  - wget http://sourceforge.net/projects/orthancserver/files/Orthanc-0.8.6.tar.gz
-  - tar -xvf Orthanc-0.8.6.tar.gz
   - mkdir build
   - cd build
-  - cmake -DORTHANC_DIR:FILEPATH=../Orthanc-0.8.6 ../dwv-orthanc-plugin
+  - cmake ../dwv-orthanc-plugin
 
 script: make

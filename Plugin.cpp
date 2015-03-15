@@ -23,7 +23,7 @@
  **/
 
 
-#include <OrthancCPlugin.h>
+#include <orthanc/OrthancCPlugin.h>
 
 #include <string>
 #include <stdio.h>
