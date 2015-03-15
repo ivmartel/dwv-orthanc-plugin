@@ -230,7 +230,7 @@ cpp = open(TARGET_BASE_FILENAME + '.cpp', 'w')
 
 cpp.write("""
 #include "%s.h"
-#include <exception>
+#include <stdexcept>
 #include <stdint.h>
 #include <string.h>
 
