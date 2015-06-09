@@ -1,3 +1,18 @@
+// OrthancExplorer/explorer.js@L145
+// -> made it async since "Synchronous XMLHttpRequest on the main thread is deprecated".
+function MyGetResource(uri, callback)
+{
+  $.ajax({
+    url: '..' + uri,
+    dataType: 'json',
+    async: true,
+    cache: false,
+    success: function(s) {
+      callback(s);
+    }
+  });
+}
+
 $('#instance').live('pagebeforecreate', function() {
   $('#instance-preview').parent().remove();
   var b = $('<a>')
@@ -10,7 +25,7 @@ $('#instance').live('pagebeforecreate', function() {
   b.insertBefore($('#instance-delete').parent().parent());
   b.click(function() {
     if ($.mobile.pageData) {
-      GetSingleResource('instances', $.mobile.pageData.uuid + '/frames', function(frames) {
+      MyGetResource('/instances/' + $.mobile.pageData.uuid + '/frames', function(frames) {
         if (frames.length == 1)
         {
           // Viewing a single-frame image
@@ -18,7 +33,8 @@ $('#instance').live('pagebeforecreate', function() {
           instanceUri += '/instances/' + $.mobile.pageData.uuid + '/file';
           var dwvUri = '../dwv-plugin/dwv/viewers/mobile';
           var fullUri = dwvUri + '/index.html?input=' + encodeURIComponent(instanceUri);
-          window.open(fullUri, '_blank');
+          window.open(fullUri, '_blank'); // needs pop up blocker disabling
+          //window.location = fullUri; // opens in same page
         }
         else
         {
@@ -51,7 +67,7 @@ $('#series').live('pagebeforecreate', function() {
   b.insertBefore($('#series-delete').parent().parent());
   b.click(function() {
     if ($.mobile.pageData) {
-      GetSingleResource('series', $.mobile.pageData.uuid, function(series) {
+      MyGetResource('/series/' + $.mobile.pageData.uuid, function(series) {
         // (yves) removed this asynchronous call since it blocks window.open.
         // Can the series.Instances[#] be different than instances.ID??
         //GetMultipleResources('instances', series.Instances, function(instances) {
@@ -71,7 +87,8 @@ $('#series').live('pagebeforecreate', function() {
         var dwvUri = '../dwv-plugin/dwv/viewers/mobile';
         var fullUri = dwvUri + '/index.html?input=' + encodeURIComponent(instancesUri);
         fullUri += '&dwvReplaceMode=void';
-        window.open(fullUri, '_blank');
+        window.open(fullUri, '_blank'); // needs pop up blocker disabling
+        //window.location = fullUri; // opens in same page
       });
     }
   });
