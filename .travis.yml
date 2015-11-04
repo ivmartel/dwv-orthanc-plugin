@@ -1,3 +1,6 @@
+# not using sudo
+sudo: false
+
 language: cpp
 
 compiler:
