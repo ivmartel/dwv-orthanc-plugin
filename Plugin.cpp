@@ -22,7 +22,6 @@
  * SOFTWARE.
  **/
 
-
 #include <orthanc/OrthancCPlugin.h>
 
 #include <string>
@@ -32,9 +31,19 @@
 
 #include <EmbeddedResources.h>
 
+#if (ORTHANC_PLUGINS_MINIMAL_MAJOR_NUMBER <= 0 && ORTHANC_PLUGINS_MINIMAL_MINOR_NUMBER <= 9 && ORTHANC_PLUGINS_MINIMAL_REVISION_NUMBER <= 4)
+#  define RETURN_TYPE     int32_t
+#  define RETURN_SUCCESS  0
+#  define RETURN_FAILURE  -1
+#else
+#  define RETURN_TYPE     OrthancPluginErrorCode
+#  define RETURN_SUCCESS  OrthancPluginErrorCode_Success
+#  define RETURN_FAILURE  OrthancPluginErrorCode_Plugin
+#endif
+
 static OrthancPluginContext* context = NULL;
 
-ORTHANC_PLUGINS_API int32_t CallbackRessources( 
+ORTHANC_PLUGINS_API RETURN_TYPE CallbackRessources( 
   OrthancPluginRestOutput* output,
   const char* url,
   const OrthancPluginHttpRequest* request)
@@ -54,7 +63,7 @@ ORTHANC_PLUGINS_API int32_t CallbackRessources(
     std::ostringstream oss;
     oss << "Unable to find HTTP resource: " << path;
     OrthancPluginLogError(context, oss.str().c_str());
-    return -1;
+    return RETURN_FAILURE;
   }
   // get the answer buffer
   const char* answer = static_cast<const char*>(Orthanc::EmbeddedResources::GetDirectoryResourceBuffer(
@@ -140,7 +149,7 @@ ORTHANC_PLUGINS_API int32_t CallbackRessources(
     OrthancPluginAnswerBuffer(context, output, answer, answerSize, mimeType.c_str());
   }
   // all good
-  return 0;
+  return RETURN_SUCCESS;
 }
 
 extern "C"
