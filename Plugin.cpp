@@ -26,6 +26,7 @@
 #include <orthanc/OrthancCPlugin.h>
 
 #include <string>
+#include <vector>
 #include <stdio.h>
 #include <sstream> 
 
@@ -63,15 +64,81 @@ ORTHANC_PLUGINS_API int32_t CallbackRessources(
   std::string mimeType = "";
   if ( ext == "html" ) {
     mimeType = "text/html";
+    // cast answer to string
+    std::string page = answer;
+    if (request->body != NULL) {
+      // comment out default applauncher
+      const std::string applau = "<script type=\"text/javascript\" src=\"applauncher.js\"></script>";
+      const std::size_t foundApplau = page.find(applau);
+      if (foundApplau != std::string::npos) {
+        page.insert(foundApplau + applau.size(), "-->");
+        page.insert(foundApplau, "<!--");
+      }
+      // insert own applauncher
+      const std::size_t foundHead = page.find("</head>");
+      if (foundHead != std::string::npos) {
+        // split urls
+        const std::string body = request->body;
+        std::string urls = body.substr(5); // remove prefix ('urls=')
+        std::vector< std::string > urlVec;
+        const std::string comma = "%2C"; // ',' url encoded
+        std::size_t foundComma = urls.find(comma);
+        while (foundComma != std::string::npos) {
+          urlVec.push_back(urls.substr(0, foundComma));
+          urls = urls.substr(foundComma + comma.size());
+          foundComma = urls.find(comma);
+        }
+        // last one or for only one case
+        if (foundComma == std::string::npos) {
+          urlVec.push_back(urls);
+        }
+        // launcher string
+        std::string launch = "<script type=\"text/javascript\">\n";
+        launch += "// check browser support\n";
+        launch += "dwv.browser.check();\n";
+        launch += "\n";
+        launch += "// launch when page is loaded\n";
+        launch += "$(document).ready( function()\n";
+        launch += "{\n";
+        launch += "    // main application\n";
+        launch += "    var myapp = new dwv.App();\n";
+        launch += "    // initialise the application\n";
+        launch += "    myapp.init({\n";
+        launch += "        \"containerDivId\": \"dwv\",\n";
+        launch += "        \"fitToWindow\": true,\n";
+        launch += "        \"tools\": [\"Scroll\", \"Window/Level\", \"Zoom/Pan\", \"Draw\", \"Livewire\", \"Filter\"],\n";
+        launch += "        \"filters\": [\"Threshold\", \"Sharpen\", \"Sobel\"],\n";
+        launch += "        \"shapes\": [\"Line\", \"Protractor\", \"Rectangle\", \"Roi\", \"Ellipse\"],\n";
+        launch += "        \"gui\": [\"tool\", \"load\", \"help\", \"undo\", \"version\", \"tags\"],\n";
+        launch += "        \"isMobile\": true\n";
+        launch += "    });\n";
+        launch += "\n";
+        launch += "   myapp.loadURL([\n";
+        for (unsigned int i = 0; i < urlVec.size(); ++i) {
+          if (i != 0) launch += ",\n";
+          launch += "      decodeURIComponent(\"" + urlVec[i] + "\")";
+        }
+        launch += "\n";
+        launch += "   ]);\n";
+        launch += "});\n";
+        launch += "</script>\n";
+        // insert launcher into page
+        page.insert(foundHead, launch);
+      }
+    }
+    // send the answer
+    OrthancPluginAnswerBuffer(context, output, page.c_str(), page.size(), mimeType.c_str());
   }
-  else if ( ext == "css" ) {
-    mimeType = "text/css";
+  else {
+    if (ext == "css") {
+      mimeType = "text/css";
+    }
+    else if (ext == "js") {
+      mimeType = "text/javascript";
+    }
+    // send the answer
+    OrthancPluginAnswerBuffer(context, output, answer, answerSize, mimeType.c_str());
   }
-  else if ( ext == "js" ) {
-    mimeType = "text/javascript";
-  }
-  // send the answer
-  OrthancPluginAnswerBuffer(context, output, answer, answerSize, mimeType.c_str());
   // all good
   return 0;
 }

@@ -31,10 +31,19 @@ $('#instance').live('pagebeforecreate', function() {
           // Viewing a single-frame image
           var instanceUri = window.location.protocol + '//' + window.location.host;
           instanceUri += '/instances/' + $.mobile.pageData.uuid + '/file';
-          var dwvUri = '../dwv-plugin/dwv/viewers/mobile';
-          var fullUri = dwvUri + '/index.html?input=' + encodeURIComponent(instanceUri);
-          window.open(fullUri, '_blank'); // needs pop up blocker disabling
-          //window.location = fullUri; // opens in same page
+          var dwvUri = '../dwv-plugin/dwv/viewers/mobile/index.html';
+          // form input element 
+          var input = document.createElement("input");
+          input.type = "text";
+          input.name = "urls";
+          input.value = instanceUri;
+          // form to send data via POST
+          var form = document.createElement("form");
+          form.method = "post";
+          form.action = dwvUri;
+          form.target = "_blank";
+          form.appendChild(input);
+          form.submit();
         }
         else
         {
@@ -73,22 +82,25 @@ $('#series').live('pagebeforecreate', function() {
         //GetMultipleResources('instances', series.Instances, function(instances) {
         var instances = series.Instances;
         Sort(instances, function(x) { return x.IndexInSeries; }, true, false);
-        var instancesUri = window.location.protocol + '//' + window.location.host + '/instances/';
-        if ( instances.length === 1 ) {
-          instancesUri += instances[0] + '/file';
+        var rootUri = window.location.protocol + '//' + window.location.host + '/instances/';
+        var instancesUri = "";
+        for (var i = 0; i < instances.length; i++) {
+          if ( i > 0 ) instancesUri += ',';
+          instancesUri += rootUri + instances[i] + '/file';
         }
-        else {
-          instancesUri += '?'; // dwv multiple uri keyword
-          for (var i = 0; i < instances.length; i++) {
-            if ( i > 0 ) instancesUri += '&';
-            instancesUri += 'file=' + instances[i] + '/file';
-          }
-        }
-        var dwvUri = '../dwv-plugin/dwv/viewers/mobile';
-        var fullUri = dwvUri + '/index.html?input=' + encodeURIComponent(instancesUri);
-        fullUri += '&dwvReplaceMode=void';
-        window.open(fullUri, '_blank'); // needs pop up blocker disabling
-        //window.location = fullUri; // opens in same page
+        var dwvUri = '../dwv-plugin/dwv/viewers/mobile/index.html';
+        // form input element 
+        var input = document.createElement("input");
+        input.type = "text";
+        input.name = "urls";
+        input.value = instancesUri;
+        // form to send data via POST
+        var form = document.createElement("form");
+        form.method = "post";
+        form.action = dwvUri;
+        form.target = "_blank";
+        form.appendChild(input);
+        form.submit();
       });
     }
   });
