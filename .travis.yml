@@ -7,6 +7,8 @@ compiler:
   - gcc
 
 before_script:
+  - cmake --version
+  - python --version
   - cd ..
   - mkdir build
   - cd build
