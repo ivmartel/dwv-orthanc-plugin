@@ -9,7 +9,7 @@ Released under GNU GPL license (see [license.txt](license.txt)).
 
 Build instructions
 ------------------
-In order to build this project, you need: python, CMake and a C++ compiler. Check out the build steps from the [travis](https://github.com/ivmartel/dwv-orthanc-plugin/blob/master/.travis.yml) file. The current build is generated using python 2.7, CMake 2.8 and gcc 4.6.
+In order to build this project, you need: python, CMake and a C++ compiler. Check out the build steps from the [travis](https://github.com/ivmartel/dwv-orthanc-plugin/blob/master/.travis.yml) file and the build log. The current build is generated using python 2.7, CMake 2.8 and gcc 4.6.
 
 The result is the `DwvOrthancPlugin` shared library.
 
