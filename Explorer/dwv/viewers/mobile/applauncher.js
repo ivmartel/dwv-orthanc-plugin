@@ -20,6 +20,19 @@ $(document).ready( function()
         "gui": ["tool", "load", "help", "undo", "version", "tags"],
         "isMobile": true
     });
+    
+    // example app listening
+    //var listener = function (event) { console.log("event: "+event.type); };
+    //myapp.addEventListener("load-end", listener);
+    //myapp.addEventListener("load-progress", listener);
+    //myapp.addEventListener("draw-create", listener);
+    //myapp.addEventListener("draw-move", listener);
+    //myapp.addEventListener("draw-change", listener);
+    //myapp.addEventListener("draw-delete", listener);
+    //myapp.addEventListener("wl-change", listener);
+    //myapp.addEventListener("colour-change", listener);
+    //myapp.addEventListener("position-change", listener);
+    //myapp.addEventListener("slice-change", listener);
 
     var size = dwv.gui.getWindowSize();
     $(".layerContainer").height(size.height);
