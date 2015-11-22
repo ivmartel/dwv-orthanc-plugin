@@ -15,10 +15,10 @@ The result is the `DwvOrthancPlugin` shared library.
 
 Installation
 ------------
-Just add the path to the `DwvOrthancPlugin` shared library in the *"Plugins"* section of an Orthanc [configuration file](https://orthanc.chu.ulg.ac.be/book/users/configuration.html). 
+Just add the path to the `DwvOrthancPlugin` shared library in the *"Plugins"* section of your Orthanc [configuration file](https://orthanc.chu.ulg.ac.be/book/users/configuration.html). 
 
 Orthanc configuration
 ---------------------
-Launch Orthanc with the configuration file as input (for example `Orthanc ./Configuration.json`) and browse to the Orthanc explorer (default at [http://localhost:8042/app/explorer.html#](http://localhost:8042/app/explorer.html#)). At instance and series level, a preview button allows to launch dwv.
+Launch Orthanc with the modified configuration file as input (for example `Orthanc ./Configuration.json`) and browse to the Orthanc explorer (default at [http://localhost:8042/app/explorer.html#](http://localhost:8042/app/explorer.html#)). At instance and series level, a preview button allows to launch dwv.
 
 **Note**: the current configuration launches a new page to visualise the data and needs to have the pop-up blockers disabled for the Orthanc pages. This can be changed in the `replace.js` file.
