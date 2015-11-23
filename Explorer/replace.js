@@ -41,7 +41,8 @@ $('#instance').live('pagebeforecreate', function() {
           var form = document.createElement("form");
           form.method = "post";
           form.action = dwvUri;
-          form.target = "_blank";
+          //form.target = "_self"; // display in same frame
+          form.target = "_blank"; // display in new window or tab
           form.appendChild(input);
           document.body.appendChild(form);
           form.submit();
@@ -99,7 +100,8 @@ $('#series').live('pagebeforecreate', function() {
         var form = document.createElement("form");
         form.method = "post";
         form.action = dwvUri;
-        form.target = "_blank";
+        //form.target = "_self"; // display in same frame
+        form.target = "_blank"; // display in new window or tab
         form.appendChild(input);
         document.body.appendChild(form);
         form.submit();
