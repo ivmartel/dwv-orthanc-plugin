@@ -9,7 +9,7 @@ Released under GNU GPL license (see [license.txt](license.txt)).
 
 Build instructions
 ------------------
-In order to build this project, you need: python, CMake and a C++ compiler. Check out the build steps from the [travis](https://github.com/ivmartel/dwv-orthanc-plugin/blob/master/.travis.yml) file and the build log. The current build is generated using python 2.7, CMake 2.8 and gcc 4.6.
+In order to build this project, you need: python, CMake and a C++ compiler. Check out the build steps from the [travis](https://github.com/ivmartel/dwv-orthanc-plugin/blob/master/.travis.yml) file and the build log. The current build is generated using python 2.7, CMake 2.8 and gcc 4.6. The targeted version of Orthanc can be set from CMake, supported version go from 0.8.6 to 0.9.4.
 
 The result is the `DwvOrthancPlugin` shared library.
 
@@ -21,4 +21,4 @@ Orthanc configuration
 ---------------------
 Launch Orthanc with the modified configuration file as input (for example `Orthanc ./Configuration.json`) and browse to the Orthanc explorer (default at [http://localhost:8042/app/explorer.html#](http://localhost:8042/app/explorer.html#)). At instance and series level, a preview button allows to launch dwv.
 
-**Note**: the current configuration launches a new page to visualise the data and needs to have the pop-up blockers disabled for the Orthanc pages. This can be changed in the `replace.js` file.
+**Note**: the current configuration launches a new page to visualise the data and needs to have the pop-up blockers disabled for the Orthanc pages. This can be changed in the `replace.js` file by modifying the target of the created form.
