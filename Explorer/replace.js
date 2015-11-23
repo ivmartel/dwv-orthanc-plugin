@@ -43,6 +43,7 @@ $('#instance').live('pagebeforecreate', function() {
           form.action = dwvUri;
           form.target = "_blank";
           form.appendChild(input);
+          document.body.appendChild(form);
           form.submit();
         }
         else
@@ -100,6 +101,7 @@ $('#series').live('pagebeforecreate', function() {
         form.action = dwvUri;
         form.target = "_blank";
         form.appendChild(input);
+        document.body.appendChild(form);
         form.submit();
       });
     }
