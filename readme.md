@@ -13,12 +13,14 @@ In order to build this project, you need: python, CMake and a C++ compiler. Chec
 
 The result is the `DwvOrthancPlugin` shared library.
 
-Installation
-------------
-Just add the path to the `DwvOrthancPlugin` shared library in the *"Plugins"* section of your Orthanc [configuration file](https://orthanc.chu.ulg.ac.be/book/users/configuration.html). 
-
 Orthanc configuration
 ---------------------
+Just add the path to the `DwvOrthancPlugin` shared library in the *"Plugins"* section of your Orthanc [configuration file](https://orthanc.chu.ulg.ac.be/book/users/configuration.html). 
+
+Launch
+---------------------
 Launch Orthanc with the modified configuration file as input (for example `Orthanc ./Configuration.json`) and browse to the Orthanc explorer (default at [http://localhost:8042/app/explorer.html#](http://localhost:8042/app/explorer.html#)). At instance and series level, a preview button allows to launch dwv.
+
+As a check if things go west, DWV should be availalble from [http://localhost:8042/dwv-plugin/dwv/viewers/mobile/index.html](http://localhost:8042/dwv-plugin/dwv/viewers/mobile/index.html).
 
 **Note**: the current configuration launches a new page to visualise the data and needs to have the pop-up blockers disabled for the Orthanc pages. This can be changed in the `replace.js` file by modifying the target of the created form.
