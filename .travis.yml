@@ -9,9 +9,10 @@ compiler:
 before_script:
   - cmake --version
   - python --version
+
+script: 
   - cd ..
   - mkdir build
   - cd build
   - cmake ../dwv-orthanc-plugin
-
-script: make
+  - make
