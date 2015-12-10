@@ -12,7 +12,12 @@ before_script:
 
 script: 
   - cd ..
-  - mkdir build
-  - cd build
-  - cmake ../dwv-orthanc-plugin
+  - mkdir build086
+  - cd build086
+  - cmake -DORTHANC_VERSION=0.8.6 ../dwv-orthanc-plugin
+  - make
+  - cd ..
+  - mkdir build095
+  - cd build095
+  - cmake -DORTHANC_VERSION=0.9.5 ../dwv-orthanc-plugin
   - make
