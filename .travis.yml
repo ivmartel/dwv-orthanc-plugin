@@ -12,12 +12,21 @@ before_script:
 
 script: 
   - cd ..
+  # compile against Orthanc v0.8.6
   - mkdir build086
   - cd build086
   - cmake -DORTHANC_VERSION=0.8.6 ../dwv-orthanc-plugin
   - make
   - cd ..
-  - mkdir build095
-  - cd build095
-  - cmake -DORTHANC_VERSION=0.9.5 ../dwv-orthanc-plugin
+  # compile against Orthanc v0.9.6
+  - mkdir build096
+  - cd build096
+  - cmake -DORTHANC_VERSION=0.9.6 ../dwv-orthanc-plugin
   - make
+  - cd ..
+  # compile against Orthanc v1.0.0
+  - mkdir build100
+  - cd build100
+  - cmake -DORTHANC_VERSION=1.0.0 ../dwv-orthanc-plugin
+  - make
+  - cd ..
