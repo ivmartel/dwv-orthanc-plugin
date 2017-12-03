@@ -108,33 +108,85 @@ ORTHANC_PLUGINS_API RETURN_TYPE CallbackRessources(
         }
         // launcher string
         std::string launch = "<script type=\"text/javascript\">\n";
-        launch += "// check browser support\n";
-        launch += "dwv.browser.check();\n";
-        launch += "\n";
-        launch += "// launch when page is loaded\n";
-        launch += "$(document).ready( function()\n";
-        launch += "{\n";
+        launch += "// start app function\n";
+        launch += "function startApp() {\n";
+        launch += "    // translate page\n";
+        launch += "    dwv.i18nPage();\n";
         launch += "    // main application\n";
         launch += "    var myapp = new dwv.App();\n";
         launch += "    // initialise the application\n";
-        launch += "    myapp.init({\n";
+        launch += "    var options = {\n";
         launch += "        \"containerDivId\": \"dwv\",\n";
         launch += "        \"fitToWindow\": true,\n";
-        launch += "        \"tools\": [\"Scroll\", \"Window/Level\", \"Zoom/Pan\", \"Draw\", \"Livewire\", \"Filter\"],\n";
+        launch += "        \"gui\": [\"tool\", \"load\", \"help\", \"undo\", \"version\", \"tags\", \"drawList\"],\n";
+        launch += "        \"loaders\": [\"File\", \"Url\"],\n";
+        launch += "        \"tools\": [\"Scroll\", \"WindowLevel\", \"ZoomAndPan\", \"Draw\", \"Livewire\", \"Filter\", \"Floodfill\"],\n";
         launch += "        \"filters\": [\"Threshold\", \"Sharpen\", \"Sobel\"],\n";
-        launch += "        \"shapes\": [\"Line\", \"Protractor\", \"Rectangle\", \"Roi\", \"Ellipse\"],\n";
-        launch += "        \"gui\": [\"tool\", \"load\", \"help\", \"undo\", \"version\", \"tags\"],\n";
+        launch += "        \"shapes\": [\"Arrow\", \"Ruler\", \"Protractor\", \"Rectangle\", \"Roi\", \"Ellipse\", \"FreeHand\"],\n";
         launch += "        \"isMobile\": true\n";
-        launch += "    });\n";
+        launch += "        //\"defaultCharacterSet\": \"chinese\"\n";
+        launch += "    };\n";
+        launch += "    if ( dwv.browser.hasInputDirectory() ) {\n";
+        launch += "        options.loaders.splice(1, 0, \"Folder\");\n";
+        launch += "    }\n";
+        launch += "    myapp.init(options);\n";
         launch += "\n";
-        launch += "   myapp.loadURL([\n";
+
+        launch += "   myapp.loadURLs([\n";
         for (unsigned int i = 0; i < urlVec.size(); ++i) {
           if (i != 0) launch += ",\n";
           launch += "      decodeURIComponent(\"" + urlVec[i] + "\")";
         }
         launch += "\n";
         launch += "   ]);\n";
+
+        launch += "    var size = dwv.gui.getWindowSize();\n";
+        launch += "    $(\".layerContainer\").height(size.height);\n";
+        launch += "}\n";
+        launch += "\n";
+        launch += "// Image decoders (for web workers)\n";
+        launch += "dwv.image.decoderScripts = {\n";
+        launch += "    \"jpeg2000\": \"../../decoders/pdfjs/decode-jpeg2000.js\",\n";
+        launch += "    \"jpeg-lossless\": \"../../decoders/rii-mango/decode-jpegloss.js\",\n";
+        launch += "    \"jpeg-baseline\": \"../../decoders/pdfjs/decode-jpegbaseline.js\"\n";
+        launch += "};\n";
+        launch += "\n";
+        launch += "// status flags\n";
+        launch += "var domContentLoaded = false;\n";
+        launch += "var i18nInitialised = false;\n";
+        launch += "// launch when both DOM and i18n are ready\n";
+        launch += "function launchApp() {\n";
+        launch += "    if ( domContentLoaded && i18nInitialised ) {\n";
+        launch += "        startApp();\n";
+        launch += "    }\n";
+        launch += "}\n";
+        launch += "// i18n ready?\n";
+        launch += "dwv.i18nOnInitialised( function () {\n";
+        launch += "    // call next once the overlays are loaded\n";
+        launch += "    var onLoaded = function (data) {\n";
+        launch += "        dwv.gui.info.overlayMaps = data;\n";
+        launch += "        i18nInitialised = true;\n";
+        launch += "        launchApp();\n";
+        launch += "    };\n";
+        launch += "    // load overlay map info\n";
+        launch += "    $.getJSON( dwv.i18nGetLocalePath(\"overlays.json\"), onLoaded )\n";
+        launch += "    .fail( function () {\n";
+        launch += "        console.log(\"Using fallback overlays.\");\n";
+        launch += "        $.getJSON( dwv.i18nGetFallbackLocalePath(\"overlays.json\"), onLoaded );\n";
+        launch += "    });\n";
         launch += "});\n";
+        launch += "\n";
+        launch += "// check browser support\n";
+        launch += "dwv.browser.check();\n";
+        launch += "// initialise i18n\n";
+        launch += "dwv.i18nInitialise();\n";
+        launch += "\n";
+        launch += "// DOM ready?\n";
+        launch += "$(document).ready( function() {\n";
+        launch += "    domContentLoaded = true;\n";
+        launch += "    launchApp();\n";
+        launch += "});\n";
+
         launch += "</script>\n";
         // insert launcher into page
         page.insert(foundHead, launch);
