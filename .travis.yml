@@ -36,3 +36,9 @@ script:
   - cmake -DORTHANC_VERSION=1.3.0 ../dwv-orthanc-plugin
   - make
   - cd ..
+  # compile against Orthanc v1.4.0
+  - mkdir build140
+  - cd build140
+  - cmake -DORTHANC_VERSION=1.4.0 ../dwv-orthanc-plugin
+  - make
+  - cd ..
