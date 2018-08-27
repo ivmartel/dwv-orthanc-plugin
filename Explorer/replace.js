@@ -31,7 +31,7 @@ $('#instance').live('pagebeforecreate', function() {
           // Viewing a single-frame image
           var instanceUri = window.location.protocol + '//' + window.location.host;
           instanceUri += '/instances/' + $.mobile.pageData.uuid + '/file';
-          var dwvUri = '../dwv-plugin/dwv/viewers/mobile/index.html';
+          var dwvUri = '../dwv-plugin/dwv-viewer/index.html';
           // form input element 
           var input = document.createElement("input");
           input.type = "text";
@@ -90,7 +90,7 @@ $('#series').live('pagebeforecreate', function() {
           if ( i > 0 ) instancesUri += ',';
           instancesUri += rootUri + instances[i] + '/file';
         }
-        var dwvUri = '../dwv-plugin/dwv/viewers/mobile/index.html';
+        var dwvUri = '../dwv-plugin/dwv-viewer/index.html';
         // form input element 
         var input = document.createElement("input");
         input.type = "text";

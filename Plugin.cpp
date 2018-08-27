@@ -81,8 +81,15 @@ ORTHANC_PLUGINS_API RETURN_TYPE CallbackRessources(
     // cast answer to string
     std::string page = answer;
     if (request->body != NULL) {
+      // comment out service worker registration
+      const std::string registersw = "<script type=\"text/javascript\" src=\"src/register-sw.js\"></script>";
+      const std::size_t foundRegistersw = page.find(registersw);
+      if (foundRegistersw != std::string::npos) {
+        page.insert(foundRegistersw + registersw.size(), "-->");
+        page.insert(foundRegistersw, "<!--");
+      }
       // comment out default applauncher
-      const std::string applau = "<script type=\"text/javascript\" src=\"applauncher.js\"></script>";
+      const std::string applau = "<script type=\"text/javascript\" src=\"src/applauncher.js\"></script>";
       const std::size_t foundApplau = page.find(applau);
       if (foundApplau != std::string::npos) {
         page.insert(foundApplau + applau.size(), "-->");
@@ -123,7 +130,8 @@ ORTHANC_PLUGINS_API RETURN_TYPE CallbackRessources(
         launch += "        \"tools\": [\"Scroll\", \"WindowLevel\", \"ZoomAndPan\", \"Draw\", \"Livewire\", \"Filter\", \"Floodfill\"],\n";
         launch += "        \"filters\": [\"Threshold\", \"Sharpen\", \"Sobel\"],\n";
         launch += "        \"shapes\": [\"Arrow\", \"Ruler\", \"Protractor\", \"Rectangle\", \"Roi\", \"Ellipse\", \"FreeHand\"],\n";
-        launch += "        \"isMobile\": true\n";
+        launch += "        \"isMobile\": true,\n";
+        launch += "        \"helpResourcesPath\": \"resources/help\"\n";
         launch += "        //\"defaultCharacterSet\": \"chinese\"\n";
         launch += "    };\n";
         launch += "    if ( dwv.browser.hasInputDirectory() ) {\n";
@@ -146,9 +154,9 @@ ORTHANC_PLUGINS_API RETURN_TYPE CallbackRessources(
         launch += "\n";
         launch += "// Image decoders (for web workers)\n";
         launch += "dwv.image.decoderScripts = {\n";
-        launch += "    \"jpeg2000\": \"../../decoders/pdfjs/decode-jpeg2000.js\",\n";
-        launch += "    \"jpeg-lossless\": \"../../decoders/rii-mango/decode-jpegloss.js\",\n";
-        launch += "    \"jpeg-baseline\": \"../../decoders/pdfjs/decode-jpegbaseline.js\"\n";
+        launch += "    \"jpeg2000\": \"node_modules/dwv/decoders/pdfjs/decode-jpeg2000.js\",\n";
+        launch += "    \"jpeg-lossless\": \"node_modules/dwv/decoders/rii-mango/decode-jpegloss.js\",\n";
+        launch += "    \"jpeg-baseline\": \"node_modules/dwv/decoders/pdfjs/decode-jpegbaseline.js\"\n";
         launch += "};\n";
         launch += "\n";
         launch += "// status flags\n";
@@ -179,7 +187,7 @@ ORTHANC_PLUGINS_API RETURN_TYPE CallbackRessources(
         launch += "// check browser support\n";
         launch += "dwv.browser.check();\n";
         launch += "// initialise i18n\n";
-        launch += "dwv.i18nInitialise();\n";
+        launch += "dwv.i18nInitialise(\"auto\", \"node_modules/dwv\");\n";
         launch += "\n";
         launch += "// DOM ready?\n";
         launch += "$(document).ready( function() {\n";
